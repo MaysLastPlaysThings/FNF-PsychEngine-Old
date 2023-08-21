@@ -291,7 +291,11 @@ class FlxRuntimeShader extends FlxShader
 			var gl = __context.gl;
 
 			var precisionHeaders = buildPrecisionHeaders();
-			var versionHeader = '#version ${_glslVersion}\n';
+			#if android
+			var versionHeader = '#version 300 es\n';
+			#else
+			var versionHeader = '#version 120\n';
+			#end
 
 			var vertex = StringTools.replace(glVertexSource, PRAGMA_PRECISION, precisionHeaders);
 			vertex = StringTools.replace(vertex, PRAGMA_VERSION, versionHeader);
